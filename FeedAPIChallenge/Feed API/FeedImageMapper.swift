@@ -10,10 +10,10 @@ import Foundation
 
 internal final class FeedImageMapper {
 	private struct Root: Decodable {
-		private let images: [Image]
+		private let items: [Image]
 
 		internal var feedImages: [FeedImage] {
-			return images.compactMap { $0.item }
+			return items.compactMap { $0.item }
 		}
 	}
 
@@ -30,14 +30,14 @@ internal final class FeedImageMapper {
 
 	internal static func resolves(_ data: Data, with httpResponse: HTTPURLResponse) -> FeedLoader.Result {
 		let failureResult = FeedLoader.Result.failure(RemoteFeedLoader.Error.invalidData)
-		guard httpResponse.statusCode == 200 else { return failureResult }
+		guard httpResponse.statusCode == 200,
+		      let feedImages = map(data) else { return failureResult }
 
-		let feedImages = map(data)
-		return feedImages.isEmpty ? failureResult : .success(feedImages)
+		return .success(feedImages)
 	}
 
-	private static func map(_ data: Data) -> [FeedImage] {
-		guard let root = try? JSONDecoder().decode(Root.self, from: data) else { return [FeedImage]() }
+	private static func map(_ data: Data) -> [FeedImage]? {
+		guard let root = try? JSONDecoder().decode(Root.self, from: data) else { return nil }
 		return root.feedImages
 	}
 }
