@@ -23,6 +23,13 @@ internal final class FeedImageMapper {
 		private let location: String?
 		private let url: URL
 
+		enum CodingKeys: String, CodingKey {
+			case id = "image_id"
+			case description = "image_desc"
+			case location = "image_loc"
+			case url = "image_url"
+		}
+
 		internal var item: FeedImage {
 			return FeedImage(id: id, description: description, location: location, url: url)
 		}
