@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal final class FeedImageMapper {
+final class FeedImageMapper {
 	private struct Root: Decodable {
 		private let items: [Image]
 
@@ -35,7 +35,7 @@ internal final class FeedImageMapper {
 		}
 	}
 
-	internal static func resolves(_ data: Data, with httpResponse: HTTPURLResponse) -> FeedLoader.Result {
+	static func resolves(_ data: Data, with httpResponse: HTTPURLResponse) -> FeedLoader.Result {
 		let failureResult = FeedLoader.Result.failure(RemoteFeedLoader.Error.invalidData)
 		guard httpResponse.statusCode == 200,
 		      let feedImages = map(data) else { return failureResult }
