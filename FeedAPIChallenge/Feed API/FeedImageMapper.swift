@@ -36,9 +36,8 @@ final class FeedImageMapper {
 	}
 
 	static func resolves(_ data: Data, with httpResponse: HTTPURLResponse) -> FeedLoader.Result {
-		let failureResult = FeedLoader.Result.failure(RemoteFeedLoader.Error.invalidData)
 		guard httpResponse.statusCode == 200,
-		      let feedImages = map(data) else { return failureResult }
+		      let feedImages = map(data) else { return .failure(RemoteFeedLoader.Error.invalidData) }
 
 		return .success(feedImages)
 	}
