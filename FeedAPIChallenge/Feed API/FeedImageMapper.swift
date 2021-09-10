@@ -44,7 +44,7 @@ final class FeedImageMapper {
 	}
 
 	private static func map(_ data: Data) -> [FeedImage]? {
-		guard let root = try? JSONDecoder().decode(Root.self, from: data) else { return nil }
-		return root.feedImages
+		let root = try? JSONDecoder().decode(Root.self, from: data)
+		return root?.feedImages
 	}
 }
