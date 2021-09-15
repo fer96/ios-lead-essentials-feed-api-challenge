@@ -9,6 +9,8 @@
 import Foundation
 
 final class FeedImageMapper {
+	private init() {}
+
 	private struct Root: Decodable {
 		private let items: [Image]
 
