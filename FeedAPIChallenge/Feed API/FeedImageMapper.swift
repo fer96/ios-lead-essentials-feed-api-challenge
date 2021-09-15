@@ -12,7 +12,7 @@ final class FeedImageMapper {
 	private struct Root: Decodable {
 		private let items: [Image]
 
-		internal var feedImages: [FeedImage] {
+		var feedImages: [FeedImage] {
 			return items.map { $0.item }
 		}
 	}
@@ -30,7 +30,7 @@ final class FeedImageMapper {
 			case url = "image_url"
 		}
 
-		internal var item: FeedImage {
+		var item: FeedImage {
 			return FeedImage(id: id, description: description, location: location, url: url)
 		}
 	}
