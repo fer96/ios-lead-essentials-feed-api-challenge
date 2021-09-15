@@ -13,7 +13,7 @@ final class FeedImageMapper {
 		private let items: [Image]
 
 		internal var feedImages: [FeedImage] {
-			return items.compactMap { $0.item }
+			return items.map { $0.item }
 		}
 	}
 
